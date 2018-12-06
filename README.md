@@ -112,17 +112,10 @@ sudo systemctl enable kestrel-APPNAME.service
 sudo systemctl start kestrel-APPNAME.service
 sudo systemctl status kestrel-APPNAME.service
 ```
-If needed, you can restart it using
+Some useful commands for the kestrel service:
 ```
 sudo systemctl restart kestrel-APPNAME.service
-```
-If needed, you can stop it using
-```
 sudo systemctl stop kestrel-APPNAME.service
-```
-
-If you have any troubles with the kestrel service, you can use this to view the journal
-```
 sudo journalctl -fu kestrel-APPNAME.service
 ```
 
@@ -138,26 +131,18 @@ sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
 sudo apt-get install python-certbot-nginx
 ```
-For this next command, it'll ask things
-
-1. it'll request an email address
-
-2. Agree to terms and conditions
-
-3. Say NO to sharing your email
-
-4. Put in your domain name
+For this next command, it'll ask if you want to redirect through https
 ```
-sudo certbot --nginx
+sudo certbot --nginx -d domain.com
+```
+If needed, some helpful certbot commands:
+
+Delete will prompt with which certificate to delete
+```
+sudo certbot certificates
+sudo certbot delete
 ```
 
-At the end, mine said this:
-```
-IMPORTANT NOTES:
- - Unable to install the certificate
- - Congratulations! Your certificate and chain have been saved at:...
-```
-It still seemed to work though
 
 You can renew certificates using
 ```
