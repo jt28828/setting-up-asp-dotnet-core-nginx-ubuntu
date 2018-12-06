@@ -4,6 +4,7 @@ Things I haven't covered (TODO):
 
 1. Forwarding headers
 
+### Dotnet
 
 Most of my steps assume that you've had no problems (I didn't...) but if you did have problems, there are links at the bottom, that I got these commands from.
 
@@ -24,6 +25,9 @@ At this point, you can run the application
 dotnet /path/to/dll/applicationName.dll
 curl localhost:5000/api/AValidGetRoute
 ```
+
+### Nginx 
+
 Now we can install Nginx as a reverse proxy
 ```
 sudo apt-get install nginx
@@ -73,6 +77,9 @@ Note that you can omit the :80 in the next statement
 ```
 curl localhost:80/api/AValidGetRoute
 ```
+
+### Kestrel
+
 Next we just need to set the dotnet app up as a kestrel service.
 
 Create the service definition file (replace APPNAME)
@@ -105,11 +112,11 @@ sudo systemctl enable kestrel-APPNAME.service
 sudo systemctl start kestrel-APPNAME.service
 sudo systemctl status kestrel-APPNAME.service
 ```
-You can restart it using
+If needed, you can restart it using
 ```
 sudo systemctl restart kestrel-APPNAME.service
 ```
-You can stop it using
+If needed, you can stop it using
 ```
 sudo systemctl stop kestrel-APPNAME.service
 ```
@@ -119,9 +126,48 @@ If you have any troubles with the kestrel service, you can use this to view the 
 sudo journalctl -fu kestrel-APPNAME.service
 ```
 
+### Certbot/SSL/HTTPS
+
+This is optional, and is getting a SSL Certificate for HTTPS requests.
+
+```
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+```
+For this next command, it'll ask things
+
+1. it'll request an email address
+
+2. Agree to terms and conditions
+
+3. Say NO to sharing your email
+
+4. Put in your domain name
+```
+sudo certbot --nginx
+```
+
+At the end, mine said this:
+```
+IMPORTANT NOTES:
+ - Unable to install the certificate
+ - Congratulations! Your certificate and chain have been saved at:...
+```
+It still seemed to work though
+
+You can renew certificates using
+```
+sudo certbot renew
+```
 
 Sources:
 
 https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/sdk-current
 
 https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.1
+
+https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx
