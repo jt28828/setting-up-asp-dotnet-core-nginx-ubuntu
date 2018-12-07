@@ -46,7 +46,7 @@ Replace text with this below. Change the IP (required), and ports if needed.
 ```
 server {
     listen        80;
-    server_name   IP;
+    server_name   IP/DOMAIN NAME;
     location / {
         proxy_pass         http://localhost:5000;
         proxy_http_version 1.1;
@@ -131,11 +131,18 @@ sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
 sudo apt-get install python-certbot-nginx
 ```
-For this next command, it'll ask if you want to redirect through https
+For this next command, it'll ask if you want to redirect through https. If you do, work it out yourself.
 ```
 sudo certbot --nginx -d domain.com
 ```
 If needed, some helpful certbot commands:
+
+Now we view Nginx's settings again.
+
+Ensure that the localhost:5000 is still http (it's http locally, but https from client to Nginx) and that it's listening on port 443
+```
+sudo nano /etc/nginx/sites-available/default
+```
 
 Delete will prompt with which certificate to delete
 ```
