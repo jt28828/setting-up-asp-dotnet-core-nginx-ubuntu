@@ -131,7 +131,8 @@ sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
 sudo apt-get install python-certbot-nginx
 ```
-For this next command, it'll ask if you want to redirect through https. If you do, work it out yourself.
+
+Running this next command will come with a bunch of questions the first time
 ```
 sudo certbot --nginx -d domain.com
 ```
@@ -149,9 +150,7 @@ Delete will prompt with which certificate to delete
 sudo certbot certificates
 sudo certbot delete
 ```
-
-
-You can renew certificates using
+You can renew certificates using this (make a task to run this every 90ish days)
 ```
 sudo certbot renew
 ```
